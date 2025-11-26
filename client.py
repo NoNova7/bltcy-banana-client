@@ -4,9 +4,9 @@ from datetime import datetime
 import os
 import base64
 
-with open("./.API_KEY.txt") as f:
+with open("./.API_KEY.txt", 'r') as f:
     API_KEY = f.read().strip()
-with open("./prompt.txt") as f:
+with open("./prompt.txt", 'r', encoding='utf-8') as f:
     prompt = f.read()
 
 
@@ -29,7 +29,7 @@ class ImageSize(Enum):
     is_4k = "4K"
 
 
-with open("./input_image/251126_10-41-51.png", "rb") as img_file:
+with open("./input_image/leilei.JPG", "rb") as img_file:
     input_img = base64.b64encode(img_file.read()).decode("utf-8")
 
 
@@ -58,7 +58,7 @@ payload = {
     "prompt": f"{prompt}",
     "model": "nano-banana-2-4k",
     "response_format": "url",
-    "aspect_ratio": AspectRatio.ar_3_4.value,
+    "aspect_ratio": AspectRatio.ar_4_3.value,
     "image_size": ImageSize.is_4k.value,
     "image": [input_img]
 }
