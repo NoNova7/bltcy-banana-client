@@ -2,6 +2,7 @@ import requests
 from enum import Enum
 from datetime import datetime
 import os
+import base64
 
 with open("./.API_KEY.txt") as f:
     API_KEY = f.read().strip()
@@ -26,6 +27,9 @@ class ImageSize(Enum):
     is_1k = "1K"
     is_2k = "2K"
     is_4k = "4K"
+
+with open("./input_image/251126_10-41-51.png", "rb") as img_file:
+    input_img = base64.b64encode(img_file.read()).decode("utf-8")
 
 
 def save_image(data):
@@ -54,7 +58,8 @@ payload = {
     "model": "nano-banana-2-4k",
     "response_format": "url",
     "aspect_ratio": AspectRatio.ar_3_4.value,
-    "image_size": ImageSize.is_4k.value
+    "image_size": ImageSize.is_4k.value,
+    "image": [input_img]
 }
 headers = {
     'Authorization': f'Bearer {API_KEY}',
