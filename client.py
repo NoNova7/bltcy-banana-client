@@ -28,6 +28,7 @@ class ImageSize(Enum):
     is_2k = "2K"
     is_4k = "4K"
 
+
 with open("./input_image/251126_10-41-51.png", "rb") as img_file:
     input_img = base64.b64encode(img_file.read()).decode("utf-8")
 
@@ -61,11 +62,14 @@ payload = {
     "image_size": ImageSize.is_4k.value,
     "image": [input_img]
 }
+
 headers = {
     'Authorization': f'Bearer {API_KEY}',
     'Content-Type': 'application/json'
 }
+
 url = "https://api.gptbest.vip/v1/images/generations"
+
 response = requests.request("POST", url, headers=headers, json=payload)
 
 response.raise_for_status()
