@@ -1,0 +1,10 @@
+.venv/
+.idea/
+.API_KEY.txt
+prompt.txt
+input_image/
+result/
+.DS_Store
+Thumbs.db
+__pycache__/
+*.pyc
