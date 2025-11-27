@@ -2,6 +2,7 @@ import requests
 from enum import Enum
 from datetime import datetime
 import os
+import sys
 import base64
 
 with open("./.API_KEY.txt", 'r') as f:
@@ -68,9 +69,12 @@ headers = {
     'Content-Type': 'application/json'
 }
 
-url = "https://api.gptbest.vip/v1/images/generations"
+url = "https://api.bltcy.ai/v1/images/generations"
 
 response = requests.request("POST", url, headers=headers, json=payload)
+
+if sys.platform.startswith("darwin"):
+    os.system('afplay /System/Library/Sounds/Hero.aiff')
 
 response.raise_for_status()
 save_image(response.json())
