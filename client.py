@@ -30,7 +30,7 @@ class ImageSize(Enum):
     is_4k = "4K"
 
 
-with open("./input_image/leilei.JPG", "rb") as img_file:
+with open("input_image/leilei.jpg", "rb") as img_file:
     input_img = base64.b64encode(img_file.read()).decode("utf-8")
 
 
@@ -40,13 +40,14 @@ def save_image(data):
         img_url = data["data"][0].get("url")
         if img_url:
             ts = datetime.now().strftime("%y%m%d_%H-%M-%S")
-            filename = f"./result/{ts}.png"
 
             img = requests.get(img_url)
             img.raise_for_status()
 
-            with open(filename, "wb") as f:
+            with open(f"./result/{ts}.png", "wb") as f:
                 f.write(img.content)
+            with open(f'./result_prompt/{ts}.txt', 'w', encoding='utf-8') as f:
+                f.write(prompt)
         else:
             print("No image url found.")
             print(f"data: {data}")
@@ -57,10 +58,10 @@ def save_image(data):
 
 payload = {
     "prompt": f"{prompt}",
-    "model": "nano-banana-2-4k",
+    "model": "nano-banana-2-2k",
     "response_format": "url",
     "aspect_ratio": AspectRatio.ar_4_3.value,
-    "image_size": ImageSize.is_4k.value,
+    "image_size": ImageSize.is_2k.value,
     "image": [input_img]
 }
 
